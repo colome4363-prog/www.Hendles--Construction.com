@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario de Solicitud</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-image: url("ChatGPT Image 30 mar 2026, 11_11_05 a.m..png");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .overlay {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .container {
+      width: 400px;
+      margin: 60px auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      transition: all 0.5s ease;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: blue;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: darkblue;
+    }
+
+    .mensaje {
+      display: none;
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+
+    .firma {
+      position: fixed;
+      bottom: 10px;
+      right: 15px;
+      font-size: 12px;
+      color: white;
+      text-shadow: 1px 1px 3px black;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .loader {
+      display: none;
+      text-align: center;
+    }
+
+    .spinner {
+      border: 5px solid #ccc;
+      border-top: 5px solid blue;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      margin: 20px auto;
+      animation: girar 1s linear infinite;
+    }
+
+    @keyframes girar {
+      from {transform: rotate(0deg);}
+      to {transform: rotate(360deg);}
+    }
+  </style>
+</head>
+<body>
+
+<div class="overlay"></div>
+
+<div class="container" id="formulario">
+  <h2>Formulario Personal</h2>
+
+  <form onsubmit="return finalizar()">
+    <input type="text" id="nombre" placeholder="Nombre completo" required>
+    <input type="text" id="direccion" placeholder="Dirección" required>
+    <input type="text" id="postal" placeholder="Código Postal" required>
+    <input type="text" id="rnc" placeholder="RNC" required>
+    <input type="text" id="codigo" placeholder="Código" required>
+    <input type="tel" id="telefono" placeholder="Teléfono" required>
+
+    <button type="submit">Finalizar</button>
+  </form>
+</div>
+
+<div class="container loader" id="cargando">
+  <div class="spinner"></div>
+  <p>Procesando solicitud...</p>
+</div>
+
+<div class="container mensaje" id="confirmacion">
+  <h2>¡Enhorabuena por completar tu solicitud para trabajar con nosotros!</h2>
+  <p>Tu solicitud ha sido aprobada.</p>
+  <p>Ponte en contacto con la persona encargada.</p>
+</div>
+
+<div class="firma">
+  Lic. Anthony Junior
+</div>
+
+<script>
+  function finalizar() {
+    let nombre = document.getElementById("nombre").value.trim();
+    let direccion = document.getElementById("direccion").value.trim();
+    let postal = document.getElementById("postal").value.trim();
+    let rnc = document.getElementById("rnc").value.trim();
+    let codigo = document.getElementById("codigo").value.trim();
+    let telefono = document.getElementById("telefono").value.trim();
+
+    if (!nombre || !direccion || !postal || !rnc || !codigo || !telefono) {
+      alert("Por favor completa todos los campos.");
+      return false;
+    }
+
+    let rncValidos = ["6394501", "7585236"];
+    if (!rncValidos.includes(rnc)) {
+      alert("RNC no válido.");
+      return false;
+    }
+
+    let codigosValidos = ["4362", "6698", "7632", "1243", "6714", "0851", "2313", "0011"];
+    if (!codigosValidos.includes(codigo)) {
+      alert("Código no válido.");
+      return false;
+    }
+
+    document.getElementById("formulario").style.display = "none";
+    document.getElementById("cargando").style.display = "block";
+
+    setTimeout(() => {
+      document.getElementById("cargando").style.display = "none";
+      document.getElementById("confirmacion").style.display = "block";
+    }, 2000);
+
+    return false;
+  }
+</script>
+
+</body>
+</html>
